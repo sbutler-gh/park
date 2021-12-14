@@ -4,10 +4,15 @@
     async function signUp(e) {
 
       document.getElementById('signUpButton').disabled = true;
+      document.getElementById('logInButton').disabled = true;
 
-        var formData = new FormData(e.target)
+        var formData = new FormData(e.target);
 
-        const response = await fetch(`/signup`, {
+      let auth_endpoint;
+
+      e.submitter.id == "logInButton" ? auth_endpoint = "signin" : auth_endpoint = "signup";
+
+        const response = await fetch(`/${auth_endpoint}`, {
             method: 'post',
             body: formData
         })
@@ -16,6 +21,7 @@
       let data = await response.json();
       console.log(data);
       document.getElementById('signUpButton').disabled = false;
+      document.getElementById('logInButton').disabled = false;
       $user_store = data.user;
       console.log(data.user);
       localStorage.setItem('user', JSON.stringify(data.user));
@@ -26,7 +32,12 @@
       console.log(error);
       signup_error = error;
       document.getElementById('signUpButton').disabled = false;
+      document.getElementById('logInButton').disabled = false;
     }
+    }
+
+    async function LogIn(e) {
+      console.log(e.target);
     }
 </script>
 <form on:submit|preventDefault={signUp}>
@@ -34,7 +45,7 @@
     <input type="email" name="email">
     <label for="password">Password</label>
     <input name="password">
-    <button id="signUpButton">Sign Up</button>
+    <button id="signUpButton">Sign Up</button> or <button id="logInButton">Log In</button>
 </form>
 
 <style>
