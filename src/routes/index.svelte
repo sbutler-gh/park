@@ -1,5 +1,6 @@
 <script>
 import { goto } from "$app/navigation";
+import SignUpForm from "$lib/components/SignUpForm.svelte";
 
     import {user_store} from "$lib/stores"
 
@@ -75,11 +76,13 @@ import { goto } from "$app/navigation";
 <button id="createThreadButton" type="submit">Create Thread</button>
 </form>
 {:else}
-<form on:submit|preventDefault={signUp}>
+<h3>Sign Up to Begin</h3>
+<SignUpForm></SignUpForm>
+<!-- <form on:submit|preventDefault={signUp}>
     <label>Email</label>
-    <input name="email">
+    <input name="email"><br>
     <label>Password</label>
     <input name="password">
     <button type="submit">Sign Up</button>
-</form>
+</form> -->
 {/if}

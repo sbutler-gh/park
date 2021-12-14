@@ -29,11 +29,20 @@
     }
     }
 </script>
-<h4>Sign Up</h4>
 <form on:submit|preventDefault={signUp}>
     <label for="email">Email</label>
     <input type="email" name="email">
     <label for="password">Password</label>
     <input name="password">
-    <button id="signUpButton">Submit</button>
+    <button id="signUpButton">Sign Up</button>
 </form>
+
+<style>
+  /* label, input, button {
+    display: block;
+  }
+
+  input {
+    margin-bottom: 10px;
+  } */
+</style>

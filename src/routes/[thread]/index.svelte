@@ -70,6 +70,7 @@ import { element } from "svelte/internal";
     {:else if $user_store?.id}
     <RequestToJoinThread></RequestToJoinThread>
     {:else}
+    <h4>Sign Up to Begin</h4>
     <SignUpForm></SignUpForm>
     {/if}
 
