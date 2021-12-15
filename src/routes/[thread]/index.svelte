@@ -7,6 +7,7 @@ import SignUpForm from "$lib/components/SignUpForm.svelte";
 import RequestToJoinThread from "$lib/components/RequestToJoinThread.svelte"
 import JoinThreadRequests from "$lib/components/JoinThreadRequests.svelte"
 import { element } from "svelte/internal";
+import JoinPermissionsForm from "$lib/components/JoinPermissionsForm.svelte";
 
     export let thread;
 </script>
@@ -57,13 +58,15 @@ import { element } from "svelte/internal";
             }
     </script>
     <h3>{thread?.title}</h3>
+    {#if $thread_store?.creator_id == $user_store?.id}
+    <JoinPermissionsForm></JoinPermissionsForm>
+    {/if}
     <!-- This conditional checks the user_threads array, returned in the thread object, to see if the user is part of this thread and has been accepted. -->
     <!-- If the user is in the users_threads table and has been accepted, then they have reply priveleges, so the <RepliesForm> component will be shown. -->
     {#if $thread_store?.users_threads?.some(user => user.user_id == $user_store?.id && user.accepted)}
-    <RepliesForm thread={$thread_store}></RepliesForm>
-
     <!-- These users can also see and approve requests to join the thread.-->
     <JoinThreadRequests></JoinThreadRequests>
+    <RepliesForm thread={$thread_store}></RepliesForm>
     {:else if $thread_store?.users_threads?.some(user => user.user_id == $user_store?.id)}
     <!-- If the user is in the users_threads and has not been accepted, then they do not have reply priveleges.  Additionally, there should be a way for thread participants to approve them. -->
     <h4>Awaiting approval to join the thread.</h4>

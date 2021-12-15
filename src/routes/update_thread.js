@@ -12,8 +12,9 @@ export async function post(request) {
 
     const { data, error } = await supabase
     .from('threads')
-    .insert({ title: request.body.get('title'), creator_id: request.body.get('creator_id'), join_permissions: request.body.get('join_permissions')})
-    
+    .update({ join_permissions: request.body.get('join_permissions')})
+    .match({id: request.body.get('thread_id')})
+
     if (error) {
       return {
         status: 500,
