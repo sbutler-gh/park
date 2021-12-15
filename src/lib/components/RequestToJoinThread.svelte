@@ -7,6 +7,7 @@
         var formData = new FormData();
         formData.append('user_id', $user_store?.id);
         formData.append('thread_id', $thread_store?.id);
+        $thread_store.join_permissions = "open" ? formData.append('accepted', true) : null;
 
         let response = await fetch('/insert_users_threads', {
             method: 'post',
